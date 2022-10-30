@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple database example</title>
+</head>
+
+<body style="margin-left: 200px; margin-top: 100px;">
+    <h1>Simple database example</h1>
+    <form action="/add-message" method="post">
+        <input name="username" placeholder="Enter your name">
+        <br>
+        <br>
+
+        <textarea placeholder="Enter your message" name="text" rows="5"></textarea>
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Messages:</h2>
+
+    {% for message in messages.items %} <!--paginate() returns a messages object with data.
+                                        messages.items accesses a list of Message objects for the specified page-->
+        <p>
+            <strong>{{ message.author }}:</strong>
+            {{message.text}}
+        </p>
+    {% endfor %}
+
+    <p>
+        {% for page_number in range(messages.pages) %} <!-- messages.pages gets information on how many pages there are-->
+            <a href="/?page={{page_number+1}}">Page {{page_number+1}}</a>
+        {% endfor %}
+    </p>
+</body>
+</html>
